@@ -23,7 +23,6 @@ export const metadata: Metadata = {
   title: "Upload Pics",
   description:
     "Easily upload and store your images — either permanently or temporarily. Perfect for quick temporary sharing or building a lasting image library.",
-  
 };
 
 export default function RootLayout({

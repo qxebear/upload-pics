@@ -31,7 +31,6 @@ export async function getFromRedis<T>(redis_key: string): Promise<T | null> {
   }
 }
 
-
 export async function saveToRedis<T>(
   redis_key: string,
   data: T,

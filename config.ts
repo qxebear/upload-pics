@@ -6,6 +6,6 @@ export default {
 
 export interface Config {
   images: {
-    limit: number,
-  }
+    limit: number;
+  };
 }

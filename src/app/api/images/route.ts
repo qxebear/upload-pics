@@ -103,7 +103,7 @@ export async function POST(req: NextRequest) {
 
     const formData = await req.formData();
     const file = formData.get("file") as File | null;
-    const rawTtl = formData.get("ttl");
+    const rawTtl = formData.get("ttl") as string | null;
 
     if (!file) {
       return NextResponse.json(

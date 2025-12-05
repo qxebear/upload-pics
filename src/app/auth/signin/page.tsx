@@ -37,7 +37,7 @@ export default async function SignInPage(props: {
               try {
                 await signIn("credentials", formData, {
                   redirectTo: searchParams.callbackUrl ?? "",
-                }); 
+                });
               } catch (error) {
                 // Signin can fail for a number of reasons, such as the user
                 // not existing, or the user not having the correct role.

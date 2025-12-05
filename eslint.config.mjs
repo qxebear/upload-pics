@@ -1,30 +1,31 @@
-import { FlatCompat } from "@eslint/eslintrc";
+import { defineConfig, globalIgnores } from "eslint/config";
+import nextVitals from "eslint-config-next/core-web-vitals";
+import nextTs from "eslint-config-next/typescript";
+import tseslint from "typescript-eslint";
 
-const compat = new FlatCompat({
-  baseDirectory: import.meta.dirname,
-});
-
-const eslintConfig = [
-  // Base config
-  ...compat.config({
-    parser: "@typescript-eslint/parser",
-    plugins: ["@typescript-eslint"],
-    extends: [
-      "next/core-web-vitals",
-      "next/typescript",
-      "prettier",
-      "plugin:@typescript-eslint/recommended-type-checked",
-      "plugin:@typescript-eslint/stylistic-type-checked",
-    ],
-    ignorePatterns: [
-      "node_modules/",
-      ".next/",
-      "dist/",
-      "public/",
-      "next-env.d.ts",
-      "eslint.config.mjs",
-      "postcss.config.js",
-    ],
+const eslintConfig = defineConfig([
+  ...nextVitals,
+  ...nextTs,
+  ...tseslint.configs.recommendedTypeChecked,
+  ...tseslint.configs.stylisticTypeChecked,
+  globalIgnores([
+    "node_modules/**",
+    ".next/**",
+    "out/**",
+    "build/**",
+    "next-env.d.ts",
+    "dist/**",
+    "public/**",
+    "coverage/**",
+    "trash/**",
+    "assets/**",
+    "eslint.config.mjs",
+    "postcss.config.js",
+  ]),
+  {
+    plugins: {
+      "typescript-eslint": tseslint,
+    },
     rules: {
       "@typescript-eslint/no-unsafe-assignment": "off",
       "@typescript-eslint/no-unused-expressions": "off",
@@ -56,20 +57,19 @@ const eslintConfig = [
       "react/no-unescaped-entities": "off",
       "react-hooks/rules-of-hooks": "off",
       "react-hooks/exhaustive-deps": "off",
+      "react-hooks/refs": "off",
+      "react-hooks/set-state-in-effect": "off",
       "@next/next/no-page-custom-font": "off",
       "@next/next/no-img-element": "off",
     },
-  }),
-
-  // ✅ Apply `parserOptions.project` only to TS/TSX files
-  {
     files: ["**/*.ts", "**/*.tsx"],
     languageOptions: {
+      parser: tseslint.parser,
       parserOptions: {
         project: "./tsconfig.json",
       },
     },
   },
-];
+]);
 
 export default eslintConfig;

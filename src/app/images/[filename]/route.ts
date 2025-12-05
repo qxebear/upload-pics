@@ -11,7 +11,7 @@ export async function GET(
     const { filename } = await params;
     const redis = await redisConnect();
 
-     const decodedFilename = decodeURIComponent(filename);
+    const decodedFilename = decodeURIComponent(filename);
 
     const rawList = await redis.lRange(LIST_KEY, 0, -1);
     const entry = rawList.find((item) => {
